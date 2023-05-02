@@ -183,10 +183,10 @@ void dropBomb(int x, int y){
     }
     else{
         board_cells[y][x].appearence = 'o';
+        totalPlays--;
     }
 
     board_cells[y][x].alreadyBombed = true;
-    totalPlays--;
 }
 
 int readNumber(){
