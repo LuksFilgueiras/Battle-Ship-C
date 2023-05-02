@@ -180,13 +180,14 @@ void dropBomb(int x, int y){
             board_cells[y][x].boatOccupying->isDestroyed = true;
             totalBoatsDestroyed++;
         }
+        return;
     }
     else{
         board_cells[y][x].appearence = 'o';
-        totalPlays--;
     }
 
     board_cells[y][x].alreadyBombed = true;
+    totalPlays--;
 }
 
 int readNumber(){
