@@ -3,6 +3,16 @@
 #include <stdbool.h>
 #include <time.h>
 
+// DEFINE COLORS
+#define ANSI_COLOR_RED     "\x1b[31m"
+#define ANSI_COLOR_GREEN   "\x1b[32m"
+#define ANSI_COLOR_YELLOW  "\x1b[33m"
+#define ANSI_COLOR_BLUE    "\x1b[34m"
+#define ANSI_COLOR_MAGENTA "\x1b[35m"
+#define ANSI_COLOR_CYAN    "\x1b[36m"
+#define ANSI_COLOR_RESET   "\x1b[0m"
+// DEFINE COLORS
+
 struct boat
 {
     int size;
@@ -104,7 +114,7 @@ void populateBoard(){
         for(int j = 0; j < 10; j++){
             struct board_cell new_board_cell;
             new_board_cell.isOccupied = false;
-            new_board_cell.appearence = 'x';
+            new_board_cell.appearence = 178;
             new_board_cell.alreadyBombed = false;
             board_cells[i][j] = new_board_cell;
         }
@@ -135,7 +145,16 @@ void viewBoard(){
     {
         printf("%d - ", i); 
         for(int j = 0; j < 10; j++){
-            printf("%c ", board_cells[i][j].appearence);
+            if(board_cells[i][j].boatOccupying->isDestroyed == false){
+                if(board_cells[i][j].appearence == 'X'){
+                    printf(ANSI_COLOR_RED "%c " ANSI_COLOR_RESET, board_cells[i][j].appearence);
+                }else{
+                    printf(ANSI_COLOR_BLUE "%c " ANSI_COLOR_RESET, board_cells[i][j].appearence);
+                }
+            }
+            else{
+                printf(ANSI_COLOR_GREEN "%c " ANSI_COLOR_RESET, board_cells[i][j].appearence);
+            }
         }
         printf("\n");
     }
@@ -156,7 +175,7 @@ void dropBomb(int x, int y){
     }
 
     if(board_cells[y][x].isOccupied == true){
-        board_cells[y][x].appearence = 'D';
+        board_cells[y][x].appearence = 'X';
         board_cells[y][x].boatOccupying->size--;
         printf("boat size: %d", board_cells[y][x].boatOccupying->size);
         if(board_cells[y][x].boatOccupying->size == 0){
@@ -221,5 +240,8 @@ int main(){
         printf("Loser!");
     }
 
+    printf("\nPress any key to finish!\n");
+    getchar();
+    
     return 0;
 }
