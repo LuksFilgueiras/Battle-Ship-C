@@ -4,13 +4,10 @@
 #include <time.h>
 
 // DEFINE COLORS
-#define ANSI_COLOR_RED     "\x1b[31m"
-#define ANSI_COLOR_GREEN   "\x1b[32m"
-#define ANSI_COLOR_YELLOW  "\x1b[33m"
-#define ANSI_COLOR_BLUE    "\x1b[34m"
-#define ANSI_COLOR_MAGENTA "\x1b[35m"
-#define ANSI_COLOR_CYAN    "\x1b[36m"
-#define ANSI_COLOR_RESET   "\x1b[0m"
+#define ANSI_COLOR_RED     "\e[0;31m"
+#define ANSI_COLOR_GREEN   "\e[0;32m"
+#define ANSI_COLOR_BLUE    "\e[0;34m"
+#define ANSI_COLOR_RESET   "\e[0m"
 // DEFINE COLORS
 
 struct boat
@@ -146,6 +143,7 @@ void viewBoard(){
         printf("%d - ", i); 
         for(int j = 0; j < 10; j++){
             if(board_cells[i][j].boatOccupying->isDestroyed == false){
+                printf(ANSI_COLOR_RESET);
                 if(board_cells[i][j].appearence == 'X'){
                     printf(ANSI_COLOR_RED "%c " ANSI_COLOR_RESET, board_cells[i][j].appearence);
                 }else{
@@ -163,7 +161,7 @@ void viewBoard(){
     printf("\n ------BOATS DESTROYED------ \n");
     for(int i = 0; i < 4; i++){
         if(boats[i].isDestroyed == true){
-            printf("%s\n", boats[i].name);
+            printf(ANSI_COLOR_GREEN " %s\n" ANSI_COLOR_RESET, boats[i].name);
         }
     }
     printf("\n --------------------------- \n");
@@ -212,6 +210,10 @@ int main(){
     srand(time( NULL ));
     generateBoats();
     populateBoard();
+
+    // Pre-Load Colors
+    viewBoard();
+    system("cls");
 
     unsigned int x_pos = 100;
     unsigned int y_pos = 100;
