@@ -82,12 +82,18 @@ void placeBoat(struct boat *boat, int x, int y){
         for(int i = 0; i < boat->size; i++){
             board_cells[y + i][x].isOccupied = true;
             board_cells[y + i][x].boatOccupying = boat;
+
+            // UNCOMMENT LINE BELOW TO SHOW BOAT PLACED IN BOARD
+            //board_cells[y + i][x].appearence = 'B';
         }
     }
     else{
          for(int i = 0; i < boat->size; i++){
             board_cells[y][x + i].isOccupied = true;
             board_cells[y][x + i].boatOccupying = boat;
+
+            // UNCOMMENT LINE BELOW TO SHOW BOAT PLACED IN BOARD
+            //board_cells[y][x + 1].appearence = 'B';
         }
     }
 }
@@ -168,8 +174,19 @@ void dropBomb(int x, int y){
 
 int readNumber(){
     int number = 100;
-    scanf("%d", &number);
-    return number;
+    while(1){
+        if(scanf("%d", &number) == 0){
+            printf("Invalid Input - please enter X Y as a number!\n");
+            fseek(stdin, 0, SEEK_END);  
+        }else{
+            if(number < 10){
+                return number;
+            }
+            else{
+                printf("Out of range!\n");
+            }
+        }
+    };
 }
 
 int main(){
@@ -192,9 +209,7 @@ int main(){
         x_pos = readNumber();
         y_pos = readNumber();
         fseek(stdin, 0, SEEK_END);
-        if(x_pos < 10 && y_pos < 10){
-            dropBomb(x_pos, y_pos);
-        }
+        dropBomb(x_pos, y_pos);
         system("cls");
     }
 
