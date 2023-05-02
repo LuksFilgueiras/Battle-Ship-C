@@ -166,13 +166,19 @@ void dropBomb(int x, int y){
     totalPlays--;
 }
 
+int readNumber(){
+    int number = 100;
+    scanf("%d", &number);
+    return number;
+}
+
 int main(){
     srand(time( NULL ));
     generateBoats();
     populateBoard();
 
-    int x_pos = 0;
-    int y_pos = 0;
+    unsigned int x_pos = 100;
+    unsigned int y_pos = 100;
 
     isPlaying = 1;
 
@@ -182,11 +188,13 @@ int main(){
             break;
         }
         viewBoard();
-        printf("\nPlay X position: \n");
-        scanf("%d", &x_pos);
-        printf("Play Y position: \n");
-        scanf("%d", &y_pos);
-        dropBomb(x_pos, y_pos);
+        printf("\nPlay X Y position: \n");
+        x_pos = readNumber();
+        y_pos = readNumber();
+        fseek(stdin, 0, SEEK_END);
+        if(x_pos < 10 && y_pos < 10){
+            dropBomb(x_pos, y_pos);
+        }
         system("cls");
     }
 
