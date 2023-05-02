@@ -100,7 +100,7 @@ void placeBoat(struct boat *boat, int x, int y){
             board_cells[y][x + i].boatOccupying = boat;
 
             // UNCOMMENT LINE BELOW TO SHOW BOAT PLACED IN BOARD
-            //board_cells[y][x + 1].appearence = 'B';
+            //board_cells[y][x + i].appearence = 'B';
         }
     }
 }
