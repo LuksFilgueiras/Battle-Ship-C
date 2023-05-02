@@ -4,4 +4,4 @@
 
 ---
 
-Mini-Game displayed on a Console.
+Mini-Game displayed on a Console
